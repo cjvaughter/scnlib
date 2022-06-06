@@ -85,7 +85,7 @@ namespace scn {
     }
         SCN_VISIT_FLOAT(float)
         SCN_VISIT_FLOAT(double)
-        SCN_VISIT_FLOAT(long double)
+        // SCN_VISIT_FLOAT(long double)
 #undef SCN_VISIT_FLOAT
 
         auto visit(std::basic_string<char_type>& val, detail::priority_tag<1>)

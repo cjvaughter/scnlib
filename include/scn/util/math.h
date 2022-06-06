@@ -92,10 +92,10 @@ namespace scn {
         struct zero_value<double> {
             static constexpr double value = 0.0;
         };
-        template <>
-        struct zero_value<long double> {
-            static constexpr long double value = 0.0l;
-        };
+        // template <>
+        // struct zero_value<long double> {
+        //     static constexpr long double value = 0.0l;
+        // };
 
         /**
          * Returns `true` if `ch` is a digit for an integer in base `base`.

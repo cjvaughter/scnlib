@@ -92,9 +92,9 @@ namespace scn {
                 }
                 // 'n'
                 if (flags[2]) {
-                    format_options |= localized_digits;
+                    // format_options |= localized_digits;
                     // 'n' implies 'L'
-                    common_options |= localized;
+                    // common_options |= localized;
                 }
                 return {};
             }
@@ -107,10 +107,10 @@ namespace scn {
                 if ((format_options & allow_string) != 0) {
                     auto truename = ctx.locale().get_static().truename();
                     auto falsename = ctx.locale().get_static().falsename();
-                    if ((common_options & localized) != 0) {
-                        truename = ctx.locale().get_localized().truename();
-                        falsename = ctx.locale().get_localized().falsename();
-                    }
+                    // if ((common_options & localized) != 0) {
+                    //     truename = ctx.locale().get_localized().truename();
+                    //     falsename = ctx.locale().get_localized().falsename();
+                    // }
                     const auto max_len =
                         detail::max(truename.size(), falsename.size());
                     std::basic_string<char_type> buf;
@@ -155,30 +155,30 @@ namespace scn {
                 }
 
                 if ((format_options & allow_int) != 0) {
-                    if ((format_options & localized_digits) != 0) {
-                        int i{};
-                        auto s = integer_scanner<int>{};
-                        s.common_options = integer_scanner<int>::localized;
-                        s.format_options =
-                            integer_scanner<int>::only_unsigned |
-                            integer_scanner<int>::localized_digits;
-                        auto e = s.scan(i, ctx);
-                        if (!e) {
-                            return e;
-                        }
-                        if (SCN_UNLIKELY(i != 0 && i != 1)) {
-                            return {
-                                error::invalid_scanned_value,
-                                "Scanned integral boolean not equal to 0 or 1"};
-                        }
-                        else if (i == 0) {
-                            val = false;
-                        }
-                        else {
-                            val = true;
-                        }
-                        return {};
-                    }
+                    // if ((format_options & localized_digits) != 0) {
+                    //     int i{};
+                    //     auto s = integer_scanner<int>{};
+                    //     s.common_options = integer_scanner<int>::localized;
+                    //     s.format_options =
+                    //         integer_scanner<int>::only_unsigned |
+                    //         integer_scanner<int>::localized_digits;
+                    //     auto e = s.scan(i, ctx);
+                    //     if (!e) {
+                    //         return e;
+                    //     }
+                    //     if (SCN_UNLIKELY(i != 0 && i != 1)) {
+                    //         return {
+                    //             error::invalid_scanned_value,
+                    //             "Scanned integral boolean not equal to 0 or 1"};
+                    //     }
+                    //     else if (i == 0) {
+                    //         val = false;
+                    //     }
+                    //     else {
+                    //         val = true;
+                    //     }
+                    //     return {};
+                    // }
 
                     unsigned char buf[4] = {0};
                     auto cp = read_code_point(ctx.range(), make_span(buf, 4));

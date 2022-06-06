@@ -24,7 +24,7 @@ namespace scn_fuzz {
     {
         do_basic_run_for_type<CharT, float>(source, format_strings);
         do_basic_run_for_type<CharT, double>(source, format_strings);
-        do_basic_run_for_type<CharT, long double>(source, format_strings);
+        // do_basic_run_for_type<CharT, long double>(source, format_strings);
     }
 }  // namespace scn_fuzz
 

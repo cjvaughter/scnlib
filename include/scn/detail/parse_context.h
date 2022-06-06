@@ -497,9 +497,9 @@ namespace scn {
         template <typename Scanner>
         SCN_CONSTEXPR14 error parse(Scanner& s) const
         {
-            if (m_localized) {
-                s.make_localized();
-            }
+            // if (m_localized) {
+            //     s.make_localized();
+            // }
             return {};
         }
 

@@ -595,10 +595,10 @@ namespace scn {
         basic_custom_locale_ref<char>::read_num<double>(double&,
                                                         const string_type&,
                                                         int) const;
-        template expected<std::ptrdiff_t>
-        basic_custom_locale_ref<char>::read_num<long double>(long double&,
-                                                             const string_type&,
-                                                             int) const;
+        // template expected<std::ptrdiff_t>
+        // basic_custom_locale_ref<char>::read_num<long double>(long double&,
+        //                                                      const string_type&,
+        //                                                      int) const;
 
         template expected<std::ptrdiff_t> basic_custom_locale_ref<
             wchar_t>::read_num<signed char>(signed char&,
@@ -648,10 +648,10 @@ namespace scn {
         basic_custom_locale_ref<wchar_t>::read_num<double>(double&,
                                                            const string_type&,
                                                            int) const;
-        template expected<std::ptrdiff_t> basic_custom_locale_ref<
-            wchar_t>::read_num<long double>(long double&,
-                                            const string_type&,
-                                            int) const;
+        // template expected<std::ptrdiff_t> basic_custom_locale_ref<
+        //     wchar_t>::read_num<long double>(long double&,
+        //                                     const string_type&,
+        //                                     int) const;
         template expected<std::ptrdiff_t>
         basic_custom_locale_ref<wchar_t>::read_num<char>(char&,
                                                          const string_type&,

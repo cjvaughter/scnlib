@@ -162,16 +162,16 @@ namespace scn {
                 }
             };
 
-            template <>
-            struct read<char, long double> {
-                static expected<long double> get(const char* str,
-                                                 size_t& chars,
-                                                 uint8_t options)
-                {
-                    return impl<long double>(strtold, HUGE_VALL, str, chars,
-                                             options);
-                }
-            };
+            // template <>
+            // struct read<char, long double> {
+            //     static expected<long double> get(const char* str,
+            //                                      size_t& chars,
+            //                                      uint8_t options)
+            //     {
+            //         return impl<long double>(strtold, HUGE_VALL, str, chars,
+            //                                  options);
+            //     }
+            // };
 
             template <>
             struct read<wchar_t, float> {
@@ -191,16 +191,16 @@ namespace scn {
                     return impl<double>(wcstod, HUGE_VAL, str, chars, options);
                 }
             };
-            template <>
-            struct read<wchar_t, long double> {
-                static expected<long double> get(const wchar_t* str,
-                                                 size_t& chars,
-                                                 uint8_t options)
-                {
-                    return impl<long double>(wcstold, HUGE_VALL, str, chars,
-                                             options);
-                }
-            };
+            // template <>
+            // struct read<wchar_t, long double> {
+            //     static expected<long double> get(const wchar_t* str,
+            //                                      size_t& chars,
+            //                                      uint8_t options)
+            //     {
+            //         return impl<long double>(wcstold, HUGE_VALL, str, chars,
+            //                                  options);
+            //     }
+            // };
         }  // namespace cstd
 
         namespace from_chars {
@@ -275,7 +275,8 @@ namespace scn {
                 if (((options & detail::float_scanner<T>::allow_hex) != 0) &&
                     is_hexfloat(str, len)) {
                     // fast_float doesn't support hexfloats
-                    return from_chars::read<T>::get(str, chars, options);
+                    return error(error::invalid_format_string, "fast_float");
+                    //return from_chars::read<T>::get(str, chars, options);
                 }
 
                 T value{};
@@ -288,9 +289,9 @@ namespace scn {
                     flags.format = static_cast<::fast_float::chars_format>(
                         flags.format | ::fast_float::scientific);
                 }
-                if ((options & detail::float_scanner<T>::localized) != 0) {
-                    flags.decimal_point = locale_decimal_point;
-                }
+                // if ((options & detail::float_scanner<T>::localized) != 0) {
+                //     flags.decimal_point = locale_decimal_point;
+                // }
 
                 const auto result = ::fast_float::from_chars_advanced(
                     str, str + len, value, flags);
@@ -306,7 +307,8 @@ namespace scn {
                     if (!(len >= 3 && (str[0] == 'i' || str[0] == 'I'))) {
                         // Input was not actually infinity ->
                         // invalid result, fall back to from_chars
-                        return from_chars::read<T>::get(str, chars, options);
+                        return error(error::value_out_of_range, "fast_float");
+                        //return from_chars::read<T>::get(str, chars, options);
                     }
                 }
                 chars = static_cast<size_t>(result.ptr - str);
@@ -338,19 +340,19 @@ namespace scn {
                                         locale_decimal_points);
                 }
             };
-            template <>
-            struct read<long double> {
-                static expected<long double> get(const char* str,
-                                                 size_t& chars,
-                                                 uint8_t options,
-                                                 char)
-                {
-                    // Fallback to strtod
-                    // fast_float doesn't support long double
-                    return cstd::read<char, long double>::get(str, chars,
-                                                              options);
-                }
-            };
+            // template <>
+            // struct read<long double> {
+            //     static expected<long double> get(const char* str,
+            //                                      size_t& chars,
+            //                                      uint8_t options,
+            //                                      char)
+            //     {
+            //         // Fallback to strtod
+            //         // fast_float doesn't support long double
+            //         return cstd::read<char, long double>::get(str, chars,
+            //                                                   options);
+            //     }
+            // };
         }  // namespace fast_float
 
         template <typename CharT, typename T>
@@ -410,10 +412,10 @@ namespace scn {
         float_scanner<float>::_read_float_impl(const char*, size_t&, char);
         template expected<double>
         float_scanner<double>::_read_float_impl(const char*, size_t&, char);
-        template expected<long double>
-        float_scanner<long double>::_read_float_impl(const char*,
-                                                     size_t&,
-                                                     char);
+        // template expected<long double>
+        // float_scanner<long double>::_read_float_impl(const char*,
+        //                                              size_t&,
+        //                                              char);
         template expected<float> float_scanner<float>::_read_float_impl(
             const wchar_t*,
             size_t&,
@@ -422,10 +424,10 @@ namespace scn {
             const wchar_t*,
             size_t&,
             wchar_t);
-        template expected<long double>
-        float_scanner<long double>::_read_float_impl(const wchar_t*,
-                                                     size_t&,
-                                                     wchar_t);
+        // template expected<long double>
+        // float_scanner<long double>::_read_float_impl(const wchar_t*,
+        //                                              size_t&,
+        //                                              wchar_t);
 #endif
     }  // namespace detail
 

@@ -236,7 +236,7 @@ namespace scn {
 
         SCN_MAKE_VALUE(float_type, float)
         SCN_MAKE_VALUE(double_type, double)
-        SCN_MAKE_VALUE(long_double_type, long double)
+        // SCN_MAKE_VALUE(long_double_type, long double)
 
         SCN_MAKE_VALUE(buffer_type, span<CharT>)
         SCN_MAKE_VALUE(string_type, std::basic_string<CharT>)
@@ -370,8 +370,8 @@ namespace scn {
                 return vis(arg.m_value.template get_as<float>());
             case detail::double_type:
                 return vis(arg.m_value.template get_as<double>());
-            case detail::long_double_type:
-                return vis(arg.m_value.template get_as<long double>());
+            // case detail::long_double_type:
+            //     return vis(arg.m_value.template get_as<long double>());
 
             case detail::buffer_type:
                 return vis(arg.m_value.template get_as<span<CharT>>());

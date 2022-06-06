@@ -194,8 +194,8 @@ namespace scn {
 
                 // n set, implies L
                 if (flags[7]) {
-                    common_options |= localized;
-                    format_options |= localized_digits;
+                    // common_options |= localized;
+                    // format_options |= localized_digits;
                 }
                 if ((format_options & localized_digits) != 0 &&
                     (base != 0 && base != 10 && base != 8 && base != 16)) {
@@ -231,46 +231,47 @@ namespace scn {
                 auto do_parse_int = [&](span<const char_type> s) -> error {
                     T tmp = 0;
                     expected<std::ptrdiff_t> ret{0};
-                    if (SCN_UNLIKELY((format_options & localized_digits) !=
-                                     0)) {
-                        SCN_CLANG_PUSH_IGNORE_UNDEFINED_TEMPLATE
-                        int b{base};
-                        auto r = parse_base_prefix<char_type>(s, b);
-                        if (!r) {
-                            return r.error();
-                        }
-                        if (b == -1) {
-                            // -1 means we read a '0'
-                            tmp = 0;
-                            return {};
-                        }
-                        if (b != 10 && base != b && base != 0) {
-                            return {error::invalid_scanned_value,
-                                    "Invalid base prefix"};
-                        }
-                        if (base == 0) {
-                            base = static_cast<uint8_t>(b);
-                        }
-                        if (base != 8 && base != 10 && base != 16) {
-                            return {error::invalid_scanned_value,
-                                    "Localized values have to be in base "
-                                    "8, 10 or 16"};
-                        }
+                    // if (SCN_UNLIKELY((format_options & localized_digits) !=
+                    //                  0)) {
+                    //     SCN_CLANG_PUSH_IGNORE_UNDEFINED_TEMPLATE
+                    //     int b{base};
+                    //     auto r = parse_base_prefix<char_type>(s, b);
+                    //     if (!r) {
+                    //         return r.error();
+                    //     }
+                    //     if (b == -1) {
+                    //         // -1 means we read a '0'
+                    //         tmp = 0;
+                    //         return {};
+                    //     }
+                    //     if (b != 10 && base != b && base != 0) {
+                    //         return {error::invalid_scanned_value,
+                    //                 "Invalid base prefix"};
+                    //     }
+                    //     if (base == 0) {
+                    //         base = static_cast<uint8_t>(b);
+                    //     }
+                    //     if (base != 8 && base != 10 && base != 16) {
+                    //         return {error::invalid_scanned_value,
+                    //                 "Localized values have to be in base "
+                    //                 "8, 10 or 16"};
+                    //     }
 
-                        auto it = r.value();
-                        std::basic_string<char_type> str(to_address(it),
-                                                         s.size());
-                        ret = ctx.locale().get_localized().read_num(
-                            tmp, str, static_cast<int>(base));
+                    //     auto it = r.value();
+                    //     std::basic_string<char_type> str(to_address(it),
+                    //                                      s.size());
+                    //     ret = ctx.locale().get_localized().read_num(
+                    //         tmp, str, static_cast<int>(base));
 
-                        if (tmp < T{0} &&
-                            (format_options & only_unsigned) != 0) {
-                            return {error::invalid_scanned_value,
-                                    "Parsed negative value when type was 'u'"};
-                        }
-                        SCN_CLANG_POP_IGNORE_UNDEFINED_TEMPLATE
-                    }
-                    else {
+                    //     if (tmp < T{0} &&
+                    //         (format_options & only_unsigned) != 0) {
+                    //         return {error::invalid_scanned_value,
+                    //                 "Parsed negative value when type was 'u'"};
+                    //     }
+                    //     SCN_CLANG_POP_IGNORE_UNDEFINED_TEMPLATE
+                    // }
+                    // else
+                    {
                         SCN_CLANG_PUSH_IGNORE_UNDEFINED_TEMPLATE
                         ret = _parse_int(tmp, s);
                         SCN_CLANG_POP_IGNORE_UNDEFINED_TEMPLATE

@@ -116,26 +116,27 @@ namespace scn {
 
                 if (get_option(flag::use_specifiers) &&
                     !get_option(flag::accept_all)) {
-                    if (localized) {
-                        if (get_option(specifier::letters)) {
-                            get_option(specifier::letters) = false;
-                            get_option(specifier::alpha) = true;
-                        }
-                        if (get_option(specifier::alnum_underscore)) {
-                            get_option(specifier::alnum_underscore) = false;
-                            get_option(specifier::alnum) = true;
-                            get_option('_') = true;
-                        }
-                        if (get_option(specifier::whitespace)) {
-                            get_option(specifier::whitespace) = false;
-                            get_option(specifier::space) = true;
-                        }
-                        if (get_option(specifier::numbers)) {
-                            get_option(specifier::numbers) = false;
-                            get_option(specifier::digit) = true;
-                        }
-                    }
-                    else {
+                    // if (localized) {
+                    //     if (get_option(specifier::letters)) {
+                    //         get_option(specifier::letters) = false;
+                    //         get_option(specifier::alpha) = true;
+                    //     }
+                    //     if (get_option(specifier::alnum_underscore)) {
+                    //         get_option(specifier::alnum_underscore) = false;
+                    //         get_option(specifier::alnum) = true;
+                    //         get_option('_') = true;
+                    //     }
+                    //     if (get_option(specifier::whitespace)) {
+                    //         get_option(specifier::whitespace) = false;
+                    //         get_option(specifier::space) = true;
+                    //     }
+                    //     if (get_option(specifier::numbers)) {
+                    //         get_option(specifier::numbers) = false;
+                    //         get_option(specifier::digit) = true;
+                    //     }
+                    // }
+                    // else
+                    {
                         auto do_range = [&](char a, char b) {
                             for (; a < b; ++a) {
                                 get_option(a) = true;
@@ -302,56 +303,56 @@ namespace scn {
                 if (get_option(flag::use_specifiers)) {
                     SCN_EXPECT(localized);  // ensured by sanitize()
                     SCN_UNUSED(localized);
-                    SCN_CLANG_PUSH_IGNORE_UNDEFINED_TEMPLATE
-                    if (get_option(specifier::alnum) &&
-                        loc.get_localized().is_alnum(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::alpha) &&
-                        loc.get_localized().is_alpha(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::blank) &&
-                        loc.get_localized().is_blank(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::cntrl) &&
-                        loc.get_localized().is_cntrl(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::digit) &&
-                        loc.get_localized().is_digit(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::graph) &&
-                        loc.get_localized().is_graph(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::lower) &&
-                        loc.get_localized().is_lower(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::print) &&
-                        loc.get_localized().is_print(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::punct) &&
-                        loc.get_localized().is_punct(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::space) &&
-                        loc.get_localized().is_space(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::upper) &&
-                        loc.get_localized().is_upper(ch)) {
-                        return not_inverted;
-                    }
-                    if (get_option(specifier::xdigit) &&
-                        loc.get_localized().is_xdigit(ch)) {
-                        return not_inverted;
-                    }
-                    SCN_CLANG_POP_IGNORE_UNDEFINED_TEMPLATE
+                    // SCN_CLANG_PUSH_IGNORE_UNDEFINED_TEMPLATE
+                    // if (get_option(specifier::alnum) &&
+                    //     loc.get_localized().is_alnum(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::alpha) &&
+                    //     loc.get_localized().is_alpha(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::blank) &&
+                    //     loc.get_localized().is_blank(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::cntrl) &&
+                    //     loc.get_localized().is_cntrl(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::digit) &&
+                    //     loc.get_localized().is_digit(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::graph) &&
+                    //     loc.get_localized().is_graph(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::lower) &&
+                    //     loc.get_localized().is_lower(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::print) &&
+                    //     loc.get_localized().is_print(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::punct) &&
+                    //     loc.get_localized().is_punct(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::space) &&
+                    //     loc.get_localized().is_space(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::upper) &&
+                    //     loc.get_localized().is_upper(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // if (get_option(specifier::xdigit) &&
+                    //     loc.get_localized().is_xdigit(ch)) {
+                    //     return not_inverted;
+                    // }
+                    // SCN_CLANG_POP_IGNORE_UNDEFINED_TEMPLATE
                 }
                 if (get_option(flag::use_chars) && (ch >= 0 && ch <= 0x7f)) {
                     if (get_option(static_cast<char>(ch))) {
@@ -1176,7 +1177,8 @@ namespace scn {
                 }
                 constexpr bool is_localized() const
                 {
-                    return localized;
+                    //return localized;
+                    return false;
                 }
                 constexpr bool is_multibyte() const
                 {

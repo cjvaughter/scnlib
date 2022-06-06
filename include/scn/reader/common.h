@@ -962,10 +962,10 @@ namespace scn {
                   m_width{width},
                   m_fn{get_fn(localized, width != 0)}
             {
-                if (localized) {
-                    l.prepare_localized();
-                    m_locale = l.get_localized_unsafe();
-                }
+                // if (localized) {
+                //     l.prepare_localized();
+                //     m_locale = l.get_localized_unsafe();
+                // }
             }
 
             /**
@@ -989,7 +989,8 @@ namespace scn {
              */
             constexpr bool is_localized() const
             {
-                return m_locale != nullptr;
+                //return m_locale != nullptr;
+                return false;
             }
             /**
              * Returns `true` if a space character can encompass multiple code
@@ -1056,9 +1057,9 @@ namespace scn {
 
             static SCN_CONSTEXPR14 fn_type get_fn(bool localized, bool counting)
             {
-                if (localized) {
-                    return counting ? localized_call_counting : localized_call;
-                }
+                // if (localized) {
+                //     return counting ? localized_call_counting : localized_call;
+                // }
                 return counting ? call_counting : call;
             }
         };
@@ -1340,7 +1341,7 @@ namespace scn {
             }
             // L -> localized
             if (ch == detail::ascii_widen<char_type>('L')) {
-                common_options |= localized;
+                // common_options |= localized;
 
                 if (!next_char()) {
                     return {};
@@ -1483,7 +1484,7 @@ namespace scn {
 
         void make_localized()
         {
-            common_options |= localized;
+            // common_options |= localized;
         }
 
         /**

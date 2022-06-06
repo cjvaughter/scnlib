@@ -82,9 +82,9 @@ namespace scn {
     template <>
     struct scanner<double> : public detail::float_scanner<double> {
     };
-    template <>
-    struct scanner<long double> : public detail::float_scanner<long double> {
-    };
+    // template <>
+    // struct scanner<long double> : public detail::float_scanner<long double> {
+    // };
     template <typename CharT, typename Allocator>
     struct scanner<std::basic_string<CharT, std::char_traits<CharT>, Allocator>>
         : public detail::string_scanner {

@@ -528,16 +528,16 @@ namespace scn {
         // virtual interface
         impl_base& get(bool localized)
         {
-            if (localized) {
-                return get_localized();
-            }
+            // if (localized) {
+            //     return get_localized();
+            // }
             return get_default();
         }
         const impl_base& get(bool localized) const
         {
-            if (localized) {
-                return get_localized();
-            }
+            // if (localized) {
+            //     return get_localized();
+            // }
             return get_default();
         }
 

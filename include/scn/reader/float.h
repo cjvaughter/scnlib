@@ -111,8 +111,8 @@ namespace scn {
 
                 // 'n'
                 if (flags[8]) {
-                    common_options |= localized;
-                    format_options |= localized_digits;
+                    // common_options |= localized;
+                    // format_options |= localized_digits;
                 }
 
                 // thsep
@@ -131,20 +131,21 @@ namespace scn {
                 auto do_parse_float = [&](span<const char_type> s) -> error {
                     T tmp = 0;
                     expected<std::ptrdiff_t> ret{0};
-                    if (SCN_UNLIKELY((format_options & localized_digits) != 0 ||
-                                     ((common_options & localized) != 0 &&
-                                      (format_options & allow_hex) != 0))) {
-                        // 'n' OR ('L' AND 'a')
-                        // because none of our parsers support BOTH hexfloats
-                        // and custom (localized) decimal points,
-                        // so we have to fall back on iostreams
-                        SCN_CLANG_PUSH_IGNORE_UNDEFINED_TEMPLATE
-                        std::basic_string<char_type> str(s.data(), s.size());
-                        ret =
-                            ctx.locale().get_localized().read_num(tmp, str, 0);
-                        SCN_CLANG_POP_IGNORE_UNDEFINED_TEMPLATE
-                    }
-                    else {
+                    // if (SCN_UNLIKELY((format_options & localized_digits) != 0 ||
+                    //                  ((common_options & localized) != 0 &&
+                    //                   (format_options & allow_hex) != 0))) {
+                    //     // 'n' OR ('L' AND 'a')
+                    //     // because none of our parsers support BOTH hexfloats
+                    //     // and custom (localized) decimal points,
+                    //     // so we have to fall back on iostreams
+                    //     SCN_CLANG_PUSH_IGNORE_UNDEFINED_TEMPLATE
+                    //     std::basic_string<char_type> str(s.data(), s.size());
+                    //     ret =
+                    //         ctx.locale().get_localized().read_num(tmp, str, 0);
+                    //     SCN_CLANG_POP_IGNORE_UNDEFINED_TEMPLATE
+                    // }
+                    // else
+                    {
                         ret = _read_float(
                             tmp, s,
                             ctx.locale()
@@ -227,7 +228,7 @@ namespace scn {
         // instantiate
         template struct float_scanner<float>;
         template struct float_scanner<double>;
-        template struct float_scanner<long double>;
+        // template struct float_scanner<long double>;
 
         template <typename T>
         struct float_scanner_access : public float_scanner<T> {

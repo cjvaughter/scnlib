@@ -130,18 +130,19 @@ using wchar_fpair = fpair<wchar_t, T>;
 
 TYPE_TO_STRING(char_fpair<float>);
 TYPE_TO_STRING(char_fpair<double>);
-TYPE_TO_STRING(char_fpair<long double>);
+// TYPE_TO_STRING(char_fpair<long double>);
 TYPE_TO_STRING(wchar_fpair<float>);
 TYPE_TO_STRING(wchar_fpair<double>);
-TYPE_TO_STRING(wchar_fpair<long double>);
+// TYPE_TO_STRING(wchar_fpair<long double>);
 
 TEST_CASE_TEMPLATE_INSTANTIATE(floating_test,
                                char_fpair<float>,
                                char_fpair<double>,
-                               char_fpair<long double>,
+                               // char_fpair<long double>,
                                wchar_fpair<float>,
                                wchar_fpair<double>,
-                               wchar_fpair<long double>);
+                               // wchar_fpair<long double>
+);
 
 TEST_CASE("ranges")
 {
