@@ -131,7 +131,7 @@ namespace scn {
                     // Subnormals cause ERANGE but a value is still returned
                 }
 
-                if (is_hexfloat(str, detail::strlen(str)) &&
+                if (is_hexfloat(str, chars) &&
                     (options & detail::float_scanner<T>::allow_hex) == 0) {
                     return error(error::invalid_scanned_value,
                                  "Hexfloats not allowed by the format string");
@@ -216,11 +216,10 @@ namespace scn {
                                        size_t& chars,
                                        uint8_t options)
                 {
-                    const auto len = std::strlen(str);
                     std::chars_format flags{};
                     if (((options & detail::float_scanner<T>::allow_hex) !=
                          0) &&
-                        is_hexfloat(str, len)) {
+                        is_hexfloat(str, chars)) {
                         str += 2;
                         flags = std::chars_format::hex;
                     }
@@ -241,7 +240,7 @@ namespace scn {
 
                     T value{};
                     const auto result =
-                        std::from_chars(str, str + len, value, flags);
+                        std::from_chars(str, str + chars, value, flags);
                     if (result.ec == std::errc::invalid_argument) {
                         return error(error::invalid_scanned_value,
                                      "from_chars");
@@ -281,9 +280,8 @@ namespace scn {
                              uint8_t options,
                              char locale_decimal_point)
             {
-                const auto len = std::strlen(str);
                 if (((options & detail::float_scanner<T>::allow_hex) != 0) &&
-                    is_hexfloat(str, len)) {
+                    is_hexfloat(str, chars)) {
                     // fast_float doesn't support hexfloats
 #if (SCN_USE_FROM_CHARS || SCN_USE_CSTD)
                     return from_chars::read<T>::get(str, chars, options);
@@ -309,7 +307,7 @@ namespace scn {
 #endif
 
                 const auto result = ::fast_float::from_chars_advanced(
-                    str, str + len, value, flags);
+                    str, str + chars, value, flags);
                 if (result.ec == std::errc::invalid_argument) {
                     return error(error::invalid_scanned_value, "fast_float");
                 }
@@ -319,7 +317,7 @@ namespace scn {
                 if (std::isinf(value)) {
                     // fast_float represents very large or small values as inf
                     // But, it also parses "inf", which from_chars does not
-                    if (!(len >= 3 && (str[0] == 'i' || str[0] == 'I'))) {
+                    if (!(chars >= 3 && (str[0] == 'i' || str[0] == 'I'))) {
                         // Input was not actually infinity -> invalid result
 #if (SCN_USE_FROM_CHARS || SCN_USE_CSTD)
                         // fall back to from_chars

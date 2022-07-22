@@ -213,11 +213,10 @@ namespace scn {
                                                  span<const CharT> s,
                                                  CharT locale_decimal_point)
             {
-                size_t chars{};
-                std::basic_string<CharT> str(s.data(), s.size());
+                size_t chars = s.size();
                 SCN_CLANG_PUSH_IGNORE_UNDEFINED_TEMPLATE
                 auto ret =
-                    _read_float_impl(str.data(), chars, locale_decimal_point);
+                    _read_float_impl(s.data(), chars, locale_decimal_point);
                 SCN_CLANG_POP_IGNORE_UNDEFINED_TEMPLATE
                 if (!ret) {
                     return ret.error();

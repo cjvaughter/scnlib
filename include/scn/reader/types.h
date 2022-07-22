@@ -107,49 +107,81 @@ namespace scn {
                 if ((format_options & allow_string) != 0) {
                     auto truename = ctx.locale().get_static().truename();
                     auto falsename = ctx.locale().get_static().falsename();
+
 #if !SCN_USE_STATIC_LOCALE
                     if ((common_options & localized) != 0) {
                         truename = ctx.locale().get_localized().truename();
                         falsename = ctx.locale().get_localized().falsename();
                     }
-#endif
-                    const auto max_len =
-                        detail::max(truename.size(), falsename.size());
-                    std::basic_string<char_type> buf;
-                    buf.reserve(max_len);
-
-                    auto tmp_it = std::back_inserter(buf);
                     auto is_space_pred = make_is_space_predicate(
-                        ctx.locale(), (common_options & localized) != 0,
-                        field_width);
-                    auto e = read_until_space(ctx.range(), tmp_it,
-                                              is_space_pred, false);
-                    if (!e) {
-                        return e;
-                    }
+                            ctx.locale(), (common_options & localized) != 0,
+                            field_width);
+#else
+                    auto is_space_pred = make_is_space_predicate(
+                            ctx.locale(), false,
+                            field_width);
+#endif
 
                     bool found = false;
-                    if (buf.size() >= falsename.size()) {
-                        if (std::equal(falsename.begin(), falsename.end(),
-                                       buf.begin())) {
-                            val = false;
-                            found = true;
+                    if (Context::range_type::is_contiguous) {
+                        auto s = read_until_space_zero_copy(
+                            ctx.range(), SCN_FWD(is_space_pred), false);
+                        if (!s) {
+                            return s.error();
+                        }
+
+                        size_t len = s.value().size();
+                        if (len >= falsename.size()) {
+                            if (std::equal(falsename.begin(), falsename.end(),
+                                        s.value().begin())) {
+                                val = false;
+                                found = true;
+                            }
+                        }
+                        if (!found && len >= truename.size()) {
+                            if (std::equal(truename.begin(), truename.end(),
+                                        s.value().begin())) {
+                                val = true;
+                                found = true;
+                            }
                         }
                     }
-                    if (!found && buf.size() >= truename.size()) {
-                        if (std::equal(truename.begin(), truename.end(),
-                                       buf.begin())) {
-                            val = true;
-                            found = true;
+                    else {
+                        const auto max_len =
+                            detail::max(truename.size(), falsename.size());
+                        std::basic_string<char_type> buf;
+                        buf.reserve(max_len);
+                        auto tmp_it = std::back_inserter(buf);
+                        auto e = read_until_space(ctx.range(), tmp_it,
+                                                is_space_pred, false);
+                        if (!e) {
+                            return e;
+                        }
+
+                        size_t len = buf.size();
+                        if (len >= falsename.size()) {
+                            if (std::equal(falsename.begin(), falsename.end(),
+                                        buf.begin())) {
+                                val = false;
+                                found = true;
+                            }
+                        }
+                        if (!found && len >= truename.size()) {
+                            if (std::equal(truename.begin(), truename.end(),
+                                        buf.begin())) {
+                                val = true;
+                                found = true;
+                            }
                         }
                     }
+
                     if (found) {
                         return {};
                     }
                     else {
                         auto pb =
                             putback_n(ctx.range(),
-                                      static_cast<std::ptrdiff_t>(buf.size()));
+                                      static_cast<std::ptrdiff_t>(len));
                         if (!pb) {
                             return pb;
                         }

@@ -615,7 +615,7 @@ namespace scn {
                         "Unexpected end of [set] in format string after ':'"};
                 }
 
-                std::basic_string<char_type> buf;
+                array<char_type, 6> fmt; size_t len{};
                 while (true) {
                     if (!pctx || pctx.check_arg_end()) {
                         return {error::invalid_format_string,
@@ -630,10 +630,14 @@ namespace scn {
                                 "Unexpected end of [set] :specifier:, did you "
                                 "forget a terminating colon?"};
                     }
-                    buf.push_back(ch);
+                    if (len >= fmt.size()) {
+                        return {error::invalid_format_string, "Format string argument too long"};
+                    }
+                    fmt[len++] = ch;
                     pctx.advance_char();
                 }
 
+                string_view buf{ fmt.data(), len };
                 auto ch = pctx.next_char();
                 if (buf == all_str(ch)) {
                     get_option(flag::accept_all) = true;
