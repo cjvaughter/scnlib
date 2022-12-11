@@ -637,7 +637,7 @@ namespace scn {
                     pctx.advance_char();
                 }
 
-                string_view buf{ fmt.data(), len };
+                basic_string_view<char_type> buf{ fmt.data(), len };
                 auto ch = pctx.next_char();
                 if (buf == all_str(ch)) {
                     get_option(flag::accept_all) = true;
@@ -901,107 +901,107 @@ namespace scn {
                 return parse_literal(pctx, allow_range, begin);
             }
 
-            SCN_NODISCARD static constexpr const char* all_str(char)
+            SCN_NODISCARD static constexpr string_view all_str(char)
             {
                 return "all";
             }
-            SCN_NODISCARD static constexpr const wchar_t* all_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view all_str(wchar_t)
             {
                 return L"all";
             }
-            SCN_NODISCARD static constexpr const char* alnum_str(char)
+            SCN_NODISCARD static constexpr string_view alnum_str(char)
             {
                 return "alnum";
             }
-            SCN_NODISCARD static constexpr const wchar_t* alnum_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view alnum_str(wchar_t)
             {
                 return L"alnum";
             }
-            SCN_NODISCARD static constexpr const char* alpha_str(char)
+            SCN_NODISCARD static constexpr string_view alpha_str(char)
             {
                 return "alpha";
             }
-            SCN_NODISCARD static constexpr const wchar_t* alpha_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view alpha_str(wchar_t)
             {
                 return L"alpha";
             }
-            SCN_NODISCARD static constexpr const char* blank_str(char)
+            SCN_NODISCARD static constexpr string_view blank_str(char)
             {
                 return "blank";
             }
-            SCN_NODISCARD static constexpr const wchar_t* blank_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view blank_str(wchar_t)
             {
                 return L"blank";
             }
-            SCN_NODISCARD static constexpr const char* cntrl_str(char)
+            SCN_NODISCARD static constexpr string_view cntrl_str(char)
             {
                 return "cntrl";
             }
-            SCN_NODISCARD static constexpr const wchar_t* cntrl_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view cntrl_str(wchar_t)
             {
                 return L"cntrl";
             }
-            SCN_NODISCARD static constexpr const char* digit_str(char)
+            SCN_NODISCARD static constexpr string_view digit_str(char)
             {
                 return "digit";
             }
-            SCN_NODISCARD static constexpr const wchar_t* digit_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view digit_str(wchar_t)
             {
                 return L"digit";
             }
-            SCN_NODISCARD static constexpr const char* graph_str(char)
+            SCN_NODISCARD static constexpr string_view graph_str(char)
             {
                 return "graph";
             }
-            SCN_NODISCARD static constexpr const wchar_t* graph_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view graph_str(wchar_t)
             {
                 return L"graph";
             }
-            SCN_NODISCARD static constexpr const char* lower_str(char)
+            SCN_NODISCARD static constexpr string_view lower_str(char)
             {
                 return "lower";
             }
-            SCN_NODISCARD static constexpr const wchar_t* lower_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view lower_str(wchar_t)
             {
                 return L"lower";
             }
-            SCN_NODISCARD static constexpr const char* print_str(char)
+            SCN_NODISCARD static constexpr string_view print_str(char)
             {
                 return "print";
             }
-            SCN_NODISCARD static constexpr const wchar_t* print_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view print_str(wchar_t)
             {
                 return L"print";
             }
-            SCN_NODISCARD static constexpr const char* punct_str(char)
+            SCN_NODISCARD static constexpr string_view punct_str(char)
             {
                 return "punct";
             }
-            SCN_NODISCARD static constexpr const wchar_t* punct_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view punct_str(wchar_t)
             {
                 return L"punct";
             }
-            SCN_NODISCARD static constexpr const char* space_str(char)
+            SCN_NODISCARD static constexpr string_view space_str(char)
             {
                 return "space";
             }
-            SCN_NODISCARD static constexpr const wchar_t* space_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view space_str(wchar_t)
             {
                 return L"space";
             }
-            SCN_NODISCARD static constexpr const char* upper_str(char)
+            SCN_NODISCARD static constexpr string_view upper_str(char)
             {
                 return "upper";
             }
-            SCN_NODISCARD static constexpr const wchar_t* upper_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view upper_str(wchar_t)
             {
                 return L"upper";
             }
-            SCN_NODISCARD static constexpr const char* xdigit_str(char)
+            SCN_NODISCARD static constexpr string_view xdigit_str(char)
             {
                 return "xdigit";
             }
-            SCN_NODISCARD static constexpr const wchar_t* xdigit_str(wchar_t)
+            SCN_NODISCARD static constexpr wstring_view xdigit_str(wchar_t)
             {
                 return L"xdigit";
             }

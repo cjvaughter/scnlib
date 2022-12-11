@@ -123,6 +123,7 @@ namespace scn {
 #endif
 
                     bool found = false;
+                    size_t len = 0;
                     if (Context::range_type::is_contiguous) {
                         auto s = read_until_space_zero_copy(
                             ctx.range(), SCN_FWD(is_space_pred), false);
@@ -130,7 +131,7 @@ namespace scn {
                             return s.error();
                         }
 
-                        size_t len = s.value().size();
+                        len = s.value().size();
                         if (len >= falsename.size()) {
                             if (std::equal(falsename.begin(), falsename.end(),
                                         s.value().begin())) {
@@ -158,7 +159,7 @@ namespace scn {
                             return e;
                         }
 
-                        size_t len = buf.size();
+                        len = buf.size();
                         if (len >= falsename.size()) {
                             if (std::equal(falsename.begin(), falsename.end(),
                                         buf.begin())) {

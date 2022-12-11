@@ -316,8 +316,11 @@ namespace scn {
                 }
                 if (std::isinf(value)) {
                     // fast_float represents very large or small values as inf
-                    // But, it also parses "inf", which from_chars does not
-                    if (!(chars >= 3 && (str[0] == 'i' || str[0] == 'I'))) {
+                    // But, it also parses "inf" or "-inf", which from_chars does not
+                    if (
+                        (value > 0 && !(chars >= 3 && (str[0] == 'i' || str[0] == 'I'))) ||
+                        (value < 0 && !(chars >= 4 && (str[1] == 'i' || str[1] == 'I')))
+                        ) {
                         // Input was not actually infinity -> invalid result
 #if (SCN_USE_FROM_CHARS || SCN_USE_CSTD)
                         // fall back to from_chars

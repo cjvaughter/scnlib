@@ -261,6 +261,23 @@ namespace scn {
         span_type m_data{};
     };
 
+    template <typename CharT>
+    constexpr bool operator==(const basic_string_view<CharT>& a, const basic_string_view<CharT>& b)
+    {
+        if (a.size() == b.size())
+        {
+            for (size_t i = 0; i < a.size(); i++)
+            {
+                if (a[i] != b[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     using string_view = basic_string_view<char>;
     using wstring_view = basic_string_view<wchar_t>;
 
